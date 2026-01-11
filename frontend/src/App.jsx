@@ -6,10 +6,10 @@ function App() {
   const [originalUrl, setOriginalUrl] = useState('');
   const [shortUrl, setShortUrl] = useState('');
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault(); 
-
+    
     try {
       const res = await axios.post(`${API_BASE_URL}/api/short`, { originalUrl });
       console.log("Response: ", res);
