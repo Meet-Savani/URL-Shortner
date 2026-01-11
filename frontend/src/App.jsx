@@ -10,7 +10,7 @@ function App() {
     e.preventDefault(); 
 
     try {
-      const res = await axios.post('http://localhost:5000/api/short', { originalUrl });
+      const res = await axios.post('http://localhost:3000/api/short', { originalUrl });
       console.log("Response: ", res);
       setShortUrl(res.data);
       console.log(res.data);

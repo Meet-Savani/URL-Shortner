@@ -12,7 +12,7 @@ app.use(cors({
     origin: '*'
 }));
 app.use(express.json());
-const PORT = 5000;
+const PORT = process.env.PORT | 3000;
 
 // Connect to MongoDB 
 mongoose.connect(process.env.DATABASE_URL, {
@@ -52,12 +52,6 @@ app.post('/api/short', async (req, res) => {
             return res.status(400).json({ message: "Original URL is required" });
         }
 
-        // if (!process.env.BASE_URL) {
-        //     return res.status(500).json({
-        //         message: "BASE_URL is not configured on the server"
-        //     });
-        // }
-
         if (!isURL(originalUrl, { require_protocol: true })) {
             return res.status(400).json({
                 message: "URL must include http:// or https://"
@@ -69,7 +63,7 @@ app.post('/api/short', async (req, res) => {
         const url = new Url({ originalUrl, shortCode });
         await url.save();
 
-        const myUrl = `http://localhost:5000/${shortCode}`;
+        const myUrl = `http://localhost:3000/${shortCode}`;
         const qrCodeImg = await QRCode.toDataURL(myUrl);
 
         res.status(200).json({ message: "URL shortened successfully",  shortUrl: myUrl, qrCodeImg });
